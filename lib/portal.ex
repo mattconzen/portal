@@ -1,7 +1,5 @@
 defmodule Portal do
   use Application
-  defstruct [:left, :right]
-
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
@@ -17,6 +15,11 @@ defmodule Portal do
     Supervisor.start_link(children, opts)
   end
 
+  defstruct [:left, :right]
+
+  @doc """
+    Starts a child process using Door.start_link
+  """
   def shoot(color) do
     Supervisor.start_child(Portal.Supervisor, [color])
   end
@@ -52,7 +55,7 @@ defimpl Inspect, for: Portal do
   def inspect(%Portal{left: left, right: right}, _) do
     #Using inspect, get the text representation of the doors and the data inside of them
     left_door = inspect(left)
-    right_door = inspect(right
+    right_door = inspect(right)
     left_data = inspect(Enum.reverse(Portal.Door.get(left)))
     right_data = inspect(Portal.Door.get(right))
 

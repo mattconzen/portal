@@ -42,3 +42,9 @@ Adding an `inspect` protocol implementation for a module allows you to determine
 See example in `portal.ex`
 
 `#{}` blocks in strings are like <%= %> blocks in old WebForms i think?
+
+#### Supervision
+
+Each instance of a module is actually its own process (you get back a PID when creating them!). If you kill a PID, then try to use an operation on it, you get an error (illustrated here by killing the blue door and trying to transfer to it).
+
+Adding a `Supervisor` protects against this by adding fault tolerance. If a process dies but it's needed by another, the supervisor just spins a new one up!
